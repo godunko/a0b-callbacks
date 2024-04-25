@@ -19,4 +19,14 @@ package body A0B.Callbacks is
       end if;
    end Emit;
 
+   -----------
+   -- Unset --
+   -----------
+
+   procedure Unset (Self : in out Callback) is
+   begin
+      Self.Emitter := null;
+      Self.Closure := System.Null_Address;
+   end Unset;
+
 end A0B.Callbacks;

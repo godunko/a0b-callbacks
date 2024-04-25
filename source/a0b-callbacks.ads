@@ -12,7 +12,7 @@ pragma Restrictions (No_Elaboration_Code);
 private with System;
 
 package A0B.Callbacks
-  with Preelaborate
+  with Pure
 is
 
    type Callback is private
@@ -23,6 +23,9 @@ is
 
    procedure Emit (Self : Callback) with Inline_Always;
    --  Call subprogram when it is set.
+
+   procedure Unset (Self : in out Callback) with Inline_Always;
+   --  Clean callback object.
 
 private
 
