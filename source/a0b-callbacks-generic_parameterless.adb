@@ -27,8 +27,6 @@ package body A0B.Callbacks.Generic_Parameterless is
 
    procedure Emitter (Closure : System.Address) is
       use type System.Address;
-      
-      pragma Unreferenced (Closure);
 
       pragma Assert (Closure = System.Null_Address);
 
