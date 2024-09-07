@@ -19,6 +19,23 @@ package body A0B.Callbacks is
       end if;
    end Emit;
 
+   ---------------
+   -- Emit_Once --
+   ---------------
+
+   procedure Emit_Once (Self : in out Callback) is
+      Emitter : constant access procedure (Closure : System.Address) :=
+        Self.Emitter;
+      Closure : constant System.Address := Self.Closure;
+
+   begin
+      Unset (Self);
+
+      if Emitter /= null then
+         Emitter (Closure);
+      end if;
+   end Emit_Once;
+
    -----------
    -- Unset --
    -----------

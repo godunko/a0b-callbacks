@@ -27,6 +27,9 @@ is
    procedure Unset (Self : in out Callback) with Inline_Always;
    --  Clean callback object.
 
+   procedure Emit_Once (Self : in out Callback);
+   --  Call callback subprogram and clean callback object.
+
 private
 
    type Callback is record
