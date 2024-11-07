@@ -8,7 +8,8 @@ Callee instantiates one of the generic childlen packages to define type of the u
  * `A0B.Callbacks.Generic_Parameterless` parameterless procedure;
  * `A0B.Callbacks.Generic_Subprogram` procedure with the parameter of the unconstrained limited type;
  * `A0B.Callbacks.Generic_Non_Dispatching` non dispatching procedure with the parameter of the classwide type;
- * `A0B.Callbacks.Generic_Dispatching` dispatching procedure with the parameter of the unconstrained abstract tagged type.
+ * `A0B.Callbacks.Generic_Dispatching` dispatching procedure with the parameter of the unconstrained abstract tagged type;
+ * `A0B.Callbacks.Generic_Discrete` procedure with the `in` parameter of a discrete type.
 
 ## Examples
 
