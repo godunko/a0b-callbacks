@@ -1,4 +1,4 @@
-# A0B Callbacks
+# [A0B](https://github.com/godunko/a0b) Callbacks
 
 This crate provides capability to call user defined callback subprograms with optional user defined data in typesafe manner. This crate doesn't use any tasking consturcts and compatible with the `light` runtimes.
 
