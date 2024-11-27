@@ -1,7 +1,7 @@
 name = "a0b_callbacks"
 description = "A0B Callbacks"
 website = "https://github.com/godunko/a0b-callbacks"
-version = "0.2.0"
+version = "0.3.0-dev"
 
 authors = ["Vadim Godunko"]
 maintainers = ["Vadim Godunko <vgodunko@gmail.com>"]
