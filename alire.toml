@@ -1,6 +1,6 @@
 name = "a0b_callbacks"
 description = "A0B Callbacks"
-version = "0.2.0-dev"
+version = "0.2.0"
 
 authors = ["Vadim Godunko"]
 maintainers = ["Vadim Godunko <vgodunko@gmail.com>"]
