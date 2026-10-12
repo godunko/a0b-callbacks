@@ -1,15 +1,13 @@
 name = "a0b_callbacks"
-description = "A0B Callbacks"
-website = "https://github.com/godunko/a0b-callbacks"
 version = "0.3.0-dev"
+website = "https://github.com/godunko/a0b-callbacks"
+description = "A0B Callbacks"
 
 authors = ["Vadim Godunko"]
 maintainers = ["Vadim Godunko <vgodunko@gmail.com>"]
 maintainers-logins = ["godunko"]
 licenses = "Apache-2.0 WITH LLVM-exception"
 tags = ["a0b", "callbacks"]
-
-project-files = ["gnat/a0b_callbacks.gpr"]
 
 [configuration]
 disabled = true
