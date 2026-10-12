@@ -1,5 +1,5 @@
 --
---  Copyright (C) 2024, Vadim Godunko <vgodunko@gmail.com>
+--  Copyright (C) 2024-2026, Vadim Godunko <vgodunko@gmail.com>
 --
 --  SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 --
@@ -23,7 +23,7 @@ package body A0B.Callbacks is
    -- Emit_Once --
    ---------------
 
-   procedure Emit_Once (Self : in out Callback) is
+   procedure Emit_Once (Self : aliased in out Callback) is
       Emitter : constant access procedure (Closure : System.Address) :=
         Self.Emitter;
       Closure : constant System.Address := Self.Closure;

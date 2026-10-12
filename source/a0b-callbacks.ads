@@ -1,5 +1,5 @@
 --
---  Copyright (C) 2024, Vadim Godunko <vgodunko@gmail.com>
+--  Copyright (C) 2024-2026, Vadim Godunko <vgodunko@gmail.com>
 --
 --  SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 --
@@ -27,7 +27,7 @@ is
    procedure Unset (Self : in out Callback) with Inline_Always;
    --  Clean callback object.
 
-   procedure Emit_Once (Self : in out Callback);
+   procedure Emit_Once (Self : aliased in out Callback);
    --  Call callback subprogram and clean callback object.
 
 private
