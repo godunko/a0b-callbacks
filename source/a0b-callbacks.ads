@@ -18,13 +18,18 @@ is
    type Callback is private
      with Preelaborable_Initialization;
 
-   function Is_Set (Self : Callback) return Boolean;
+   function Is_Set (Self : Callback) return Boolean
+     with Global => null;
    --  Callback subprogram/argument has been set.
 
    procedure Emit (Self : Callback) with Inline_Always;
    --  Call subprogram when it is set.
 
-   procedure Unset (Self : in out Callback) with Inline_Always;
+   procedure Unset (Self : in out Callback)
+     with Inline_Always,
+          Global  => null,
+          Depends => (Self => null, null => Self),
+          Post    => not Is_Set (Self);
    --  Clean callback object.
 
    procedure Emit_Once (Self : aliased in out Callback);
