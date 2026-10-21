@@ -40,7 +40,11 @@ package body A0B.Callbacks is
    -- Unset --
    -----------
 
-   procedure Unset (Self : in out Callback) is
+   procedure Unset (Self : in out Callback)
+     with Refined_Post =>
+       Self.Emitter = null
+         and then System."=" (Self.Closure, System.Null_Address)
+   is
    begin
       Self.Emitter := null;
       Self.Closure := System.Null_Address;

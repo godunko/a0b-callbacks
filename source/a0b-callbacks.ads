@@ -19,7 +19,8 @@ is
      with Preelaborable_Initialization;
 
    function Is_Set (Self : Callback) return Boolean
-     with Global => null;
+     with Global  => null,
+          Depends => (Is_Set'Result => Self);
    --  Callback subprogram/argument has been set.
 
    procedure Emit (Self : Callback) with Inline_Always;
@@ -27,6 +28,7 @@ is
 
    procedure Unset (Self : in out Callback)
      with Inline_Always,
+          Always_Terminates,
           Global  => null,
           Depends => (Self => null, null => Self),
           Post    => not Is_Set (Self);
