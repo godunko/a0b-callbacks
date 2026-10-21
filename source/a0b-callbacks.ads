@@ -16,7 +16,8 @@ package A0B.Callbacks
 is
 
    type Callback is private
-     with Preelaborable_Initialization;
+     with Preelaborable_Initialization,
+          Default_Initial_Condition => not Is_Set (Callback);
 
    function Is_Set (Self : Callback) return Boolean
      with Global  => null,
@@ -41,7 +42,7 @@ private
 
    type Callback is record
       Emitter : access procedure (Closure : System.Address);
-      Closure : System.Address;
+      Closure : System.Address := System'To_Address (0);
    end record;
 
    function Is_Set (Self : Callback) return Boolean is
