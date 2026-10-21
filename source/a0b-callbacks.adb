@@ -32,6 +32,9 @@ package body A0B.Callbacks is
       Unset (Self);
 
       if Emitter /= null then
+         pragma Assert (not Is_Set (Self));
+         --  Callback has been unset before invocation.
+
          Emitter (Closure);
       end if;
    end Emit_Once;
