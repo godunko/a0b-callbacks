@@ -13,7 +13,7 @@ pragma Restrictions (No_Elaboration_Code);
 private with System.Storage_Elements;
 
 package A0B.Callbacks
-  with Pure
+  with Pure, SPARK_Mode => On
 is
 
    type Callback is private
@@ -25,8 +25,20 @@ is
           Depends => (Is_Set'Result => Self);
    --  Callback subprogram/argument has been set.
 
-   procedure Emit (Self : Callback) with Inline_Always;
+   procedure Emit (Self : Callback)
+     with Inline_Always,
+          SPARK_Mode => Off;
    --  Call subprogram when it is set.
+   --
+   --  `Emit` is outside SPARK because registered handlers may access arbitrary
+   --  global data.
+
+   procedure Emit_Once (Self : aliased in out Callback)
+     with SPARK_Mode => Off;
+   --  Call callback subprogram and clean callback object.
+   --
+   --  `Emit_Once` is outside SPARK because registered handlers may access
+   --  arbitrary global data.
 
    procedure Unset (Self : in out Callback)
      with Inline_Always,
@@ -35,9 +47,6 @@ is
           Depends => (Self => null, null => Self),
           Post    => not Is_Set (Self);
    --  Clean callback object.
-
-   procedure Emit_Once (Self : aliased in out Callback);
-   --  Call callback subprogram and clean callback object.
 
 private
 

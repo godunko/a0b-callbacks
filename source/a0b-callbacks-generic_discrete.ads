@@ -1,5 +1,5 @@
 --
---  Copyright (C) 2024, Vadim Godunko <vgodunko@gmail.com>
+--  Copyright (C) 2024-2026, Vadim Godunko <vgodunko@gmail.com>
 --
 --  SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 --
@@ -16,10 +16,13 @@ generic
    with procedure Subprogram (Value : Discrete_Type);
 
 package A0B.Callbacks.Generic_Discrete
-  with Preelaborate
+  with Preelaborate, SPARK_Mode => On
 is
 
-   function Create_Callback (Value : Discrete_Type) return Callback;
+   function Create_Callback (Value : Discrete_Type) return Callback
+     with SPARK_Mode => Off;
+   --  The erased emitter invokes an actual subprogram with unrestricted
+   --  effects; its stored closure is not proved to satisfy Decode's contract.
 
 private
 

@@ -1,5 +1,5 @@
 --
---  Copyright (C) 2024, Vadim Godunko <vgodunko@gmail.com>
+--  Copyright (C) 2024-2026, Vadim Godunko <vgodunko@gmail.com>
 --
 --  SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 --
@@ -15,8 +15,11 @@ generic
    with procedure Subprogram (Self : in out Object_Type'Class);
 
 package A0B.Callbacks.Generic_Non_Dispatching
-  with Preelaborate
+  with Preelaborate, SPARK_Mode => Off
 is
+
+   --  Outside SPARK: the retained object address may have mutable aliases;
+   --  lifetime, address recovery and handler effects require separate review.
 
    function Create_Callback
      (Object : aliased in out Object_Type'Class) return Callback;

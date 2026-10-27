@@ -1,5 +1,5 @@
 --
---  Copyright (C) 2024, Vadim Godunko <vgodunko@gmail.com>
+--  Copyright (C) 2024-2026, Vadim Godunko <vgodunko@gmail.com>
 --
 --  SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 --
@@ -12,8 +12,11 @@ generic
    with procedure Subprogram;
 
 package A0B.Callbacks.Generic_Parameterless
-  with Preelaborate
+  with Preelaborate, SPARK_Mode => Off
 is
+
+   --  Outside SPARK: constructing the callback takes access to an emitter
+   --  whose actual handler may have arbitrary global effects.
 
    function Create_Callback return Callback;
 

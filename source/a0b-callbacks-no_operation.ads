@@ -10,9 +10,12 @@
 pragma Restrictions (No_Elaboration_Code);
 
 package A0B.Callbacks.No_Operation
-  with Pure
+  with Pure, SPARK_Mode => On
 is
 
-   function Create_Callback return Callback;
+   function Create_Callback return Callback
+     with Global  => null,
+          Depends => (Create_Callback'Result => null),
+          Post    => Is_Set (Create_Callback'Result);
 
 end A0B.Callbacks.No_Operation;

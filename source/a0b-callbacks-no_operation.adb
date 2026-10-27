@@ -6,10 +6,14 @@
 
 pragma Restrictions (No_Elaboration_Code);
 
-package body A0B.Callbacks.No_Operation is
+package body A0B.Callbacks.No_Operation
+  with SPARK_Mode => On
+is
 
    procedure Emitter
-     (Closure : System.Storage_Elements.Integer_Address) is null;
+     (Closure : System.Storage_Elements.Integer_Address)
+     with Global  => null,
+          Depends => (null => Closure);
 
    ---------------------
    -- Create_Callback --
@@ -19,5 +23,12 @@ package body A0B.Callbacks.No_Operation is
    is
      (Emitter => Emitter'Access,
       Closure => Null_Address);
+
+   -------------
+   -- Emitter --
+   -------------
+
+   procedure Emitter
+     (Closure : System.Storage_Elements.Integer_Address) is null;
 
 end A0B.Callbacks.No_Operation;

@@ -8,7 +8,9 @@ pragma Restrictions (No_Elaboration_Code);
 
 with System.Address_To_Access_Conversions;
 
-package body A0B.Callbacks.Generic_Object_Aliased is
+package body A0B.Callbacks.Generic_Object_Aliased
+  with SPARK_Mode => Off
+is
 
    package Conversions is
      new System.Address_To_Access_Conversions (Object_Type);

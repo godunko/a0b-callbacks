@@ -6,9 +6,12 @@
 
 pragma Restrictions (No_Elaboration_Code);
 
-package body A0B.Callbacks.Generic_Parameterless is
+package body A0B.Callbacks.Generic_Parameterless
+  with SPARK_Mode => Off
+is
 
-   procedure Emitter (Closure : System.Storage_Elements.Integer_Address);
+   procedure Emitter (Closure : System.Storage_Elements.Integer_Address)
+     with SPARK_Mode => Off;
 
    ---------------------
    -- Create_Callback --
@@ -23,7 +26,9 @@ package body A0B.Callbacks.Generic_Parameterless is
    -- Emitter --
    -------------
 
-   procedure Emitter (Closure : System.Storage_Elements.Integer_Address) is
+   procedure Emitter (Closure : System.Storage_Elements.Integer_Address)
+     with SPARK_Mode => Off
+   is
       use type System.Storage_Elements.Integer_Address;
 
       pragma Assert (Closure = Null_Address);
