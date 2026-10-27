@@ -1,5 +1,5 @@
 --
---  Copyright (C) 2025, Vadim Godunko <vgodunko@gmail.com>
+--  Copyright (C) 2025-2026, Vadim Godunko <vgodunko@gmail.com>
 --
 --  SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 --
@@ -13,7 +13,7 @@ package body A0B.Callbacks.Generic_Object_Aliased is
    package Conversions is
      new System.Address_To_Access_Conversions (Object_Type);
 
-   procedure Emitter (Closure : System.Address);
+   procedure Emitter (Closure : System.Storage_Elements.Integer_Address);
 
    ---------------------
    -- Create_Callback --
@@ -24,16 +24,20 @@ package body A0B.Callbacks.Generic_Object_Aliased is
    begin
       return
         (Emitter => Emitter'Access,
-         Closure => Conversions.To_Address (Object'Unchecked_Access));
+         Closure =>
+           System.Storage_Elements.To_Integer
+             (Conversions.To_Address (Object'Unchecked_Access)));
    end Create_Callback;
 
    -------------
    -- Emitter --
    -------------
 
-   procedure Emitter (Closure : System.Address) is
+   procedure Emitter (Closure : System.Storage_Elements.Integer_Address) is
    begin
-      Subprogram (Conversions.To_Pointer (Closure).all);
+      Subprogram
+        (Conversions.To_Pointer
+           (System.Storage_Elements.To_Address (Closure)).all);
    end Emitter;
 
 end A0B.Callbacks.Generic_Object_Aliased;

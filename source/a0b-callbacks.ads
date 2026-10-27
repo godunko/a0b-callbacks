@@ -7,9 +7,10 @@
 --  Simple callback object to call user defined subprogram with single user
 --  defined argument.
 
+pragma Ada_2022;
 pragma Restrictions (No_Elaboration_Code);
 
-private with System;
+private with System.Storage_Elements;
 
 package A0B.Callbacks
   with Pure
@@ -40,9 +41,13 @@ is
 
 private
 
+   function Null_Address return System.Storage_Elements.Integer_Address
+   is (0) with Static;
+
    type Callback is record
-      Emitter : access procedure (Closure : System.Address);
-      Closure : System.Address := System'To_Address (0);
+      Emitter : access
+        procedure (Closure : System.Storage_Elements.Integer_Address) := null;
+      Closure : System.Storage_Elements.Integer_Address := Null_Address;
    end record;
 
    function Is_Set (Self : Callback) return Boolean is

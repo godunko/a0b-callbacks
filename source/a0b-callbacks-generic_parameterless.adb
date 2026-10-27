@@ -1,5 +1,5 @@
 --
---  Copyright (C) 2024, Vadim Godunko <vgodunko@gmail.com>
+--  Copyright (C) 2024-2026, Vadim Godunko <vgodunko@gmail.com>
 --
 --  SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 --
@@ -8,7 +8,7 @@ pragma Restrictions (No_Elaboration_Code);
 
 package body A0B.Callbacks.Generic_Parameterless is
 
-   procedure Emitter (Closure : System.Address);
+   procedure Emitter (Closure : System.Storage_Elements.Integer_Address);
 
    ---------------------
    -- Create_Callback --
@@ -18,17 +18,17 @@ package body A0B.Callbacks.Generic_Parameterless is
    begin
       return
         (Emitter => Emitter'Access,
-         Closure => System.Null_Address);
+         Closure => Null_Address);
    end Create_Callback;
 
    -------------
    -- Emitter --
    -------------
 
-   procedure Emitter (Closure : System.Address) is
-      use type System.Address;
+   procedure Emitter (Closure : System.Storage_Elements.Integer_Address) is
+      use type System.Storage_Elements.Integer_Address;
 
-      pragma Assert (Closure = System.Null_Address);
+      pragma Assert (Closure = Null_Address);
 
    begin
       Subprogram;

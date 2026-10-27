@@ -8,6 +8,8 @@ pragma Restrictions (No_Elaboration_Code);
 
 package body A0B.Callbacks is
 
+   use type System.Storage_Elements.Integer_Address;
+
    ----------
    -- Emit --
    ----------
@@ -24,9 +26,11 @@ package body A0B.Callbacks is
    ---------------
 
    procedure Emit_Once (Self : aliased in out Callback) is
-      Emitter : constant access procedure (Closure : System.Address) :=
-        Self.Emitter;
-      Closure : constant System.Address := Self.Closure;
+      Emitter : constant
+        access procedure (Closure : System.Storage_Elements.Integer_Address) :=
+          Self.Emitter;
+      Closure : constant System.Storage_Elements.Integer_Address :=
+        Self.Closure;
 
    begin
       Unset (Self);
@@ -44,13 +48,11 @@ package body A0B.Callbacks is
    -----------
 
    procedure Unset (Self : in out Callback)
-     with Refined_Post =>
-       Self.Emitter = null
-         and then System."=" (Self.Closure, System.Null_Address)
+     with Refined_Post => Self.Emitter = null and Self.Closure = 0
    is
    begin
       Self.Emitter := null;
-      Self.Closure := System.Null_Address;
+      Self.Closure := Null_Address;
    end Unset;
 
 end A0B.Callbacks;

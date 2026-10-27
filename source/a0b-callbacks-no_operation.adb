@@ -8,7 +8,8 @@ pragma Restrictions (No_Elaboration_Code);
 
 package body A0B.Callbacks.No_Operation is
 
-   procedure Emitter (Closure : System.Address) is null;
+   procedure Emitter
+     (Closure : System.Storage_Elements.Integer_Address) is null;
 
    ---------------------
    -- Create_Callback --
@@ -16,7 +17,7 @@ package body A0B.Callbacks.No_Operation is
 
    function Create_Callback return Callback is
    begin
-      return (Emitter => Emitter'Access, Closure => System.Null_Address);
+      return (Emitter => Emitter'Access, Closure => Null_Address);
    end Create_Callback;
 
 end A0B.Callbacks.No_Operation;
