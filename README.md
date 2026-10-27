@@ -1,23 +1,32 @@
 # [A0B](https://github.com/godunko/a0b) Callbacks
 
-This crate provides capability to call user defined callback subprograms with optional user defined data in typesafe manner. This crate doesn't use any tasking consturcts and compatible with the `light` runtimes.
+This crate provides type-safe callbacks with optional user-defined data.
+It does not use tasking constructs and is compatible with the `light` runtimes.
 
-Caller uses `A0B.Callbacks` package to store callback subprogram and user defined data.
+The code that invokes a callback uses `A0B.Callbacks.Callback` to store the callback procedure and its associated data.
 
-Callee instantiates one of the generic childlen packages to define type of the user data, and to create `Callback` object to pass to caller. Here is list of generic children packages:
- * `A0B.Callbacks.Generic_Parameterless` parameterless procedure;
- * `A0B.Callbacks.Generic_Subprogram` procedure with the parameter of the unconstrained limited type;
- * `A0B.Callbacks.Generic_Non_Dispatching` non dispatching procedure with the parameter of the classwide type;
- * `A0B.Callbacks.Generic_Dispatching` dispatching procedure with the parameter of the unconstrained abstract tagged type;
- * `A0B.Callbacks.Generic_Discrete` procedure with the `in` parameter of a discrete type.
+The code that registers a callback instantiates one of the following generic child packages and uses its `Create_Callback` function to construct the callback object:
+
+ * `A0B.Callbacks.Generic_Parameterless`: a parameterless procedure;
+ * `A0B.Callbacks.Generic_Subprogram`: a procedure with an `in out` object parameter;
+ * `A0B.Callbacks.Generic_Object_Aliased`: a procedure with an `aliased in out` object parameter;
+ * `A0B.Callbacks.Generic_Non_Dispatching`: a non-dispatching procedure with an `in out` class-wide parameter;
+ * `A0B.Callbacks.Generic_Dispatching`: a dispatching procedure with an `in out` tagged parameter;
+ * `A0B.Callbacks.Generic_Discrete`: a procedure with an `in` parameter of a discrete type.
+
+## No-operation callbacks
+
+`A0B.Callbacks.No_Operation.Create_Callback` creates a callback for which `Is_Set` returns `True`, but whose handler does nothing.
+This is useful when a callback must be considered registered even though no action is required.
+A default-initialized callback also does nothing when emitted, but `Is_Set` returns `False` for it.
 
 ## Examples
 
 ### Device Driver
 
-Lets use `A0B.Callabacks` to call application defined callback when interrupt driven device driver receives data and it can be processed by the application.
+Let's use `A0B.Callbacks` to invoke an application-defined callback when an interrupt-driven device driver receives data that the application can process.
 
-Here is snippet of the device driver's code:
+Here is a snippet of the device driver's code:
 
 ```ada
 with A0B.Callbacks;
@@ -60,10 +69,11 @@ package body Device_Driver is
 end Device_Driver;
 ```
 
-An example application uses parameterless procedure as callback subprogram:
+An example application uses a parameterless procedure as the callback:
 
 ```ada
 with A0B.Callbacks.Generic_Parameterless;
+with Device_Driver;
 
 package body Application is
 
@@ -79,6 +89,7 @@ package body Application is
    procedure On_Data_Received is
    begin
       --  Process received data.
+      null;
    end On_Data_Received;
 
 begin
@@ -89,6 +100,6 @@ end Application;
 
 ### Task wakeup
 
-Another example is available in `B2F4A` library, it allows to wakeup Ada task on callback.
-See [bbf-await.ads](https://github.com/godunko/b2f4a/blob/master/source/bbf-awaits.ads) 
+Another example is available in the `B2F4A` library, which uses callbacks to wake up an Ada task.
+See the [bbf-awaits.ads](https://github.com/godunko/b2f4a/blob/master/source/bbf-awaits.ads)
 and [bbf-awaits.adb](https://github.com/godunko/b2f4a/blob/master/source/bbf-awaits.adb) files.
