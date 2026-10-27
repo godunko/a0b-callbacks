@@ -20,12 +20,10 @@ package body A0B.Callbacks.Generic_Non_Dispatching is
    ---------------------
 
    function Create_Callback
-     (Object : aliased in out Object_Type'Class) return Callback is
-   begin
-      return
-        (Emitter => Emitter'Access,
-         Closure => System.Storage_Elements.To_Integer (Object'Address));
-   end Create_Callback;
+     (Object : aliased in out Object_Type'Class) return Callback
+   is
+     (Emitter => Emitter'Access,
+      Closure => System.Storage_Elements.To_Integer (Object'Address));
 
    -------------
    -- Emitter --

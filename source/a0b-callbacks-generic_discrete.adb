@@ -8,6 +8,10 @@ package body A0B.Callbacks.Generic_Discrete is
 
    procedure Emitter (Closure : System.Storage_Elements.Integer_Address);
 
+   ---------------------
+   -- Create_Callback --
+   ---------------------
+
    function Create_Callback (Value : Discrete_Type) return Callback is
      (Emitter => Emitter'Access,
       Closure => Discrete_Type'Pos (Value));

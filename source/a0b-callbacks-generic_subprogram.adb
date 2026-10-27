@@ -20,14 +20,12 @@ package body A0B.Callbacks.Generic_Subprogram is
    ---------------------
 
    function Create_Callback
-     (Object : aliased in out Object_Type) return Callback is
-   begin
-      return
-        (Emitter => Emitter'Access,
-         Closure =>
-           System.Storage_Elements.To_Integer
-             (Conversions.To_Address (Object'Unchecked_Access)));
-   end Create_Callback;
+     (Object : aliased in out Object_Type) return Callback
+   is
+     (Emitter => Emitter'Access,
+      Closure =>
+         System.Storage_Elements.To_Integer
+           (Conversions.To_Address (Object'Unchecked_Access)));
 
    -------------
    -- Emitter --
