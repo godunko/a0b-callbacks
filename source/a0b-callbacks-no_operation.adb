@@ -15,9 +15,9 @@ package body A0B.Callbacks.No_Operation is
    -- Create_Callback --
    ---------------------
 
-   function Create_Callback return Callback is
-   begin
-      return (Emitter => Emitter'Access, Closure => Null_Address);
-   end Create_Callback;
+   function Create_Callback return Callback
+   is
+     (Emitter => Emitter'Access,
+      Closure => Null_Address);
 
 end A0B.Callbacks.No_Operation;
