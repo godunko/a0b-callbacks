@@ -32,7 +32,19 @@ is
    is
    begin
       if Self.Emitter /= null then
-         Self.Emitter (Self.Closure);
+         begin
+            --  Catch and ignore any exception propagated by the emitter.
+            --
+            --  When the `No_Exception_Propagation` restriction is applied
+            --  to the partition, only local exception handling is supported,
+            --  meaning the exception cannot be caught across boundaries.
+
+            Self.Emitter (Self.Closure);
+
+         exception
+            when others =>
+               null;
+         end;
       end if;
    end Emit;
 
@@ -52,7 +64,7 @@ is
          pragma Assert (not Is_Set (Self));
          --  Callback has been unset before invocation.
 
-         Saved.Emitter (Saved.Closure);
+         Emit (Saved);
       end if;
    end Emit_Once;
 

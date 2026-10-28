@@ -28,14 +28,16 @@ is
    procedure Emit (Self : Callback)
      with Inline_Always,
           SPARK_Mode => Off;
-   --  Call subprogram when it is set.
+   --  Call the callback subprogram when it is set. Exceptions propagated by
+   --  the callback subprogram are caught and ignored.
    --
    --  `Emit` is outside SPARK because registered handlers may access arbitrary
    --  global data.
 
    procedure Emit_Once (Self : aliased in out Callback)
      with SPARK_Mode => Off;
-   --  Call callback subprogram and clean callback object.
+   --  Clear the callback object and invoke the saved callback subprogram. The
+   --  callback subprogram may register a new callback during the call.
    --
    --  `Emit_Once` is outside SPARK because registered handlers may access
    --  arbitrary global data.
