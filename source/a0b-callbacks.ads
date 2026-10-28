@@ -10,7 +10,7 @@
 pragma Ada_2022;
 pragma Restrictions (No_Elaboration_Code);
 
-private with System.Storage_Elements;
+private with A0B.Storage;
 
 package A0B.Callbacks
   with Pure, SPARK_Mode => On
@@ -52,13 +52,9 @@ is
 
 private
 
-   function Null_Address return System.Storage_Elements.Integer_Address
-   is (0) with Static;
-
    type Callback is record
-      Emitter : access
-        procedure (Closure : System.Storage_Elements.Integer_Address) := null;
-      Closure : System.Storage_Elements.Integer_Address := Null_Address;
+      Emitter : access procedure (Closure : A0B.Storage.Address);
+      Closure : A0B.Storage.Address;
    end record;
 
    function Is_Set (Self : Callback) return Boolean is

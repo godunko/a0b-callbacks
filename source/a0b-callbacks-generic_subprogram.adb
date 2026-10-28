@@ -6,16 +6,16 @@
 
 pragma Restrictions (No_Elaboration_Code);
 
-with System.Address_To_Access_Conversions;
+with A0B.Storage.Address_To_Access_Conversions;
 
 package body A0B.Callbacks.Generic_Subprogram
   with SPARK_Mode => Off
 is
 
    package Conversions is
-     new System.Address_To_Access_Conversions (Object_Type);
+     new A0B.Storage.Address_To_Access_Conversions (Object_Type);
 
-   procedure Emitter (Closure : System.Storage_Elements.Integer_Address);
+   procedure Emitter (Closure : A0B.Storage.Address);
 
    ------------
    -- Create --
@@ -25,19 +25,15 @@ is
      (Object : aliased in out Object_Type) return Callback
    is
      (Emitter => Emitter'Access,
-      Closure =>
-         System.Storage_Elements.To_Integer
-           (Conversions.To_Address (Object'Unchecked_Access)));
+      Closure => Conversions.As_Address (Object'Unchecked_Access));
 
    -------------
    -- Emitter --
    -------------
 
-   procedure Emitter (Closure : System.Storage_Elements.Integer_Address) is
+   procedure Emitter (Closure : A0B.Storage.Address) is
    begin
-      Subprogram
-        (Conversions.To_Pointer
-           (System.Storage_Elements.To_Address (Closure)).all);
+      Subprogram (Conversions.As_Access (Closure).all);
    end Emitter;
 
 end A0B.Callbacks.Generic_Subprogram;

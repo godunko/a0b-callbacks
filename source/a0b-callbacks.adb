@@ -10,7 +10,7 @@ package body A0B.Callbacks
   with SPARK_Mode => On
 is
 
-   use type System.Storage_Elements.Integer_Address;
+   use type A0B.Storage.Address;
 
    procedure Take (Self : in out Callback; Saved : out Callback)
      with Inline_Always,
@@ -83,11 +83,12 @@ is
    -----------
 
    procedure Unset (Self : in out Callback)
-     with Refined_Post => Self.Emitter = null and Self.Closure = 0
+     with Refined_Post => Self.Emitter = null
+       and Self.Closure = A0B.Storage.Null_Address
    is
    begin
       Self.Emitter := null;
-      Self.Closure := Null_Address;
+      Self.Closure := A0B.Storage.Null_Address;
    end Unset;
 
 end A0B.Callbacks;

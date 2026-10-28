@@ -8,7 +8,7 @@
 
 pragma Restrictions (No_Elaboration_Code);
 
-with System.Storage_Elements;
+private with System.Storage_Elements;
 
 generic
    type Discrete_Type is (<>);

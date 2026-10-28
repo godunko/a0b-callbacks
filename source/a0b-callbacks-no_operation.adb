@@ -10,8 +10,7 @@ package body A0B.Callbacks.No_Operation
   with SPARK_Mode => On
 is
 
-   procedure Emitter
-     (Closure : System.Storage_Elements.Integer_Address)
+   procedure Emitter (Closure : A0B.Storage.Address)
      with Global  => null,
           Depends => (null => Closure);
 
@@ -22,13 +21,12 @@ is
    function Create return Callback
    is
      (Emitter => Emitter'Access,
-      Closure => Null_Address);
+      Closure => <>);
 
    -------------
    -- Emitter --
    -------------
 
-   procedure Emitter
-     (Closure : System.Storage_Elements.Integer_Address) is null;
+   procedure Emitter (Closure : A0B.Storage.Address) is null;
 
 end A0B.Callbacks.No_Operation;

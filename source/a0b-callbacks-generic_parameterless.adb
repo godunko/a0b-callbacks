@@ -10,7 +10,7 @@ package body A0B.Callbacks.Generic_Parameterless
   with SPARK_Mode => Off
 is
 
-   procedure Emitter (Closure : System.Storage_Elements.Integer_Address)
+   procedure Emitter (Closure : A0B.Storage.Address)
      with SPARK_Mode => Off;
 
    ------------
@@ -20,18 +20,18 @@ is
    function Create return Callback
    is
      (Emitter => Emitter'Access,
-      Closure => Null_Address);
+      Closure => <>);
 
    -------------
    -- Emitter --
    -------------
 
-   procedure Emitter (Closure : System.Storage_Elements.Integer_Address)
+   procedure Emitter (Closure : A0B.Storage.Address)
      with SPARK_Mode => Off
    is
-      use type System.Storage_Elements.Integer_Address;
+      use type A0B.Storage.Address;
 
-      pragma Assert (Closure = Null_Address);
+      pragma Assert (Closure = A0B.Storage.Null_Address);
 
    begin
       Subprogram;

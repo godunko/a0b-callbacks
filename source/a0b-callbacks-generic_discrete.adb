@@ -9,10 +9,10 @@ package body A0B.Callbacks.Generic_Discrete
 is
 
    function Decode
-     (Closure : System.Storage_Elements.Integer_Address) return Discrete_Type
+     (Closure : A0B.Storage.Address) return Discrete_Type
      with Global => null,
           Pre    =>
-            Closure in
+            A0B.Storage.As_Integer (Closure) in
               System.Storage_Elements.Integer_Address
                 (Discrete_Type'Pos (Discrete_Type'First))
               .. System.Storage_Elements.Integer_Address
@@ -20,24 +20,25 @@ is
           Post   =>
             System.Storage_Elements."="
               (System.Storage_Elements.Integer_Address
-                 (Discrete_Type'Pos (Decode'Result)), Closure);
+                 (Discrete_Type'Pos (Decode'Result)),
+               A0B.Storage.As_Integer (Closure));
 
    function Encode
-     (Value : Discrete_Type) return System.Storage_Elements.Integer_Address
+     (Value : Discrete_Type) return A0B.Storage.Address
      with Global => null,
           Post   =>
             System.Storage_Elements."="
-              (Encode'Result,
+              (A0B.Storage.As_Integer (Encode'Result),
                System.Storage_Elements.Integer_Address
                  (Discrete_Type'Pos (Value)))
-              and then Encode'Result in
+              and then A0B.Storage.As_Integer (Encode'Result) in
                 System.Storage_Elements.Integer_Address
                   (Discrete_Type'Pos (Discrete_Type'First))
                 .. System.Storage_Elements.Integer_Address
                   (Discrete_Type'Pos (Discrete_Type'Last))
               and then Decode (Encode'Result) = Value;
 
-   procedure Emitter (Closure : System.Storage_Elements.Integer_Address)
+   procedure Emitter (Closure : A0B.Storage.Address)
      with SPARK_Mode => Off;
 
    ------------
@@ -54,14 +55,14 @@ is
    ------------
 
    function Decode
-     (Closure : System.Storage_Elements.Integer_Address) return Discrete_Type
-   is (Discrete_Type'Val (Closure));
+     (Closure : A0B.Storage.Address) return Discrete_Type
+   is (Discrete_Type'Val (A0B.Storage.As_Integer (Closure)));
 
    -------------
    -- Emitter --
    -------------
 
-   procedure Emitter (Closure : System.Storage_Elements.Integer_Address)
+   procedure Emitter (Closure : A0B.Storage.Address)
      with SPARK_Mode => Off
    is
    begin
@@ -73,7 +74,9 @@ is
    ------------
 
    function Encode
-     (Value : Discrete_Type) return System.Storage_Elements.Integer_Address
-   is (Discrete_Type'Pos (Value));
+     (Value : Discrete_Type) return A0B.Storage.Address
+   is
+     (A0B.Storage.As_Address
+        (System.Storage_Elements.To_Address (Discrete_Type'Pos (Value))));
 
 end A0B.Callbacks.Generic_Discrete;
