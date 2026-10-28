@@ -1,5 +1,5 @@
 name = "a0b_callbacks"
-version = "0.3.0-dev"
+version = "0.4.0-dev"
 website = "https://github.com/godunko/a0b-callbacks"
 description = "A0B Callbacks"
 long-description = """
