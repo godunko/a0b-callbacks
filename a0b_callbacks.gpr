@@ -17,7 +17,6 @@ library project A0B_Callbacks is
    for Source_Dirs use ("source");
 
    package Compiler is
-      for Switches ("Ada") use A0B_Common.Compiler_Switches_Ada;
       for Switches ("Ada") use
         A0B_Callbacks_Config.Ada_Compiler_Switches
           & A0B_Common.Compiler_Switches_Ada;
