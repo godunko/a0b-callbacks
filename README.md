@@ -14,11 +14,14 @@ The code that registers a callback instantiates one of the following generic chi
  * `A0B.Callbacks.Generic_Dispatching`: a dispatching procedure with an `in out` tagged parameter;
  * `A0B.Callbacks.Generic_Discrete`: a procedure with an `in` parameter of a discrete type.
 
-## No-operation callbacks
+## No-operation and Empty callbacks
 
-`A0B.Callbacks.No_Operation.Create_Callback` creates a callback for which `Is_Set` returns `True`, but whose handler does nothing.
+`A0B.Callbacks.No_Operation` creates a callback for which `Is_Set` returns `True`, but whose handler does nothing.
 This is useful when a callback must be considered registered even though no action is required.
-A default-initialized callback also does nothing when emitted, but `Is_Set` returns `False` for it.
+
+`A0B.Callbacks.Empty` creates an "empty" callback for which `Is_Set` returns `False`.
+
+A default-initialized callback also does nothing when emitted, while `Is_Set` returns `False` for it.
 
 ## Examples
 
