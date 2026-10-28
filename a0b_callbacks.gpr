@@ -4,16 +4,23 @@
 --  SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 --
 
-with "a0b_common";
-with "a0b_base";
+with "config/a0b_callbacks_config.gpr";
 
-project A0B_Callbacks is
+with "a0b_common.gpr";
+
+library project A0B_Callbacks is
+
+   for Library_Name use "a0b_callbacks";
+   for Library_Dir use ".libs/" & A0B_Common.Library_Dir_Suffix;
+   for Object_Dir use ".objs/" & A0B_Common.Object_Dir_Suffix;
 
    for Source_Dirs use ("source");
-   for Object_Dir use ".objs/" & A0B_Common.Object_Dir_Suffix;
 
    package Compiler is
       for Switches ("Ada") use A0B_Common.Compiler_Switches_Ada;
+      for Switches ("Ada") use
+        A0B_Callbacks_Config.Ada_Compiler_Switches
+          & A0B_Common.Compiler_Switches_Ada;
    end Compiler;
 
 end A0B_Callbacks;
