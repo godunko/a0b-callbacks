@@ -1,3 +1,5 @@
-.objs
-.vscode
-alire
+/.objs/
+/.libs/
+/.vscode/
+/alire/
+/config/
