@@ -15,11 +15,11 @@ is
      with Global  => null,
           Depends => (null => Closure);
 
-   ---------------------
-   -- Create_Callback --
-   ---------------------
+   ------------
+   -- Create --
+   ------------
 
-   function Create_Callback return Callback
+   function Create return Callback
    is
      (Emitter => Emitter'Access,
       Closure => Null_Address);

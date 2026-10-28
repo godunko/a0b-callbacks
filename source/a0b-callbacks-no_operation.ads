@@ -13,9 +13,12 @@ package A0B.Callbacks.No_Operation
   with Pure, SPARK_Mode => On
 is
 
-   function Create_Callback return Callback
+   function Create return Callback
      with Global  => null,
-          Depends => (Create_Callback'Result => null),
-          Post    => Is_Set (Create_Callback'Result);
+          Depends => (Create'Result => null),
+          Post    => Is_Set (Create'Result);
+
+   function Create_Callback return Callback
+     renames Create with Obsolescent;
 
 end A0B.Callbacks.No_Operation;

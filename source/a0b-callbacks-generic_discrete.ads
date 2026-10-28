@@ -19,10 +19,13 @@ package A0B.Callbacks.Generic_Discrete
   with Preelaborate, SPARK_Mode => On
 is
 
-   function Create_Callback (Value : Discrete_Type) return Callback
+   function Create (Value : Discrete_Type) return Callback
      with SPARK_Mode => Off;
    --  The erased emitter invokes an actual subprogram with unrestricted
    --  effects; its stored closure is not proved to satisfy Decode's contract.
+
+   function Create_Callback (Value : Discrete_Type) return Callback
+     renames Create with Obsolescent;
 
 private
 

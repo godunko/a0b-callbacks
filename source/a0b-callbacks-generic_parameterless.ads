@@ -18,6 +18,8 @@ is
    --  Outside SPARK: constructing the callback takes access to an emitter
    --  whose actual handler may have arbitrary global effects.
 
-   function Create_Callback return Callback;
+   function Create return Callback;
+
+   function Create_Callback return Callback renames Create with Obsolescent;
 
 end A0B.Callbacks.Generic_Parameterless;

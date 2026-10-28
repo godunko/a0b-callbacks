@@ -21,7 +21,10 @@ is
    --  Outside SPARK: the retained object address may have mutable aliases;
    --  lifetime, address recovery and dispatch effects require separate review.
 
+   function Create (Object : aliased in out Object_Type'Class) return Callback;
+
    function Create_Callback
-     (Object : aliased in out Object_Type'Class) return Callback;
+     (Object : aliased in out Object_Type'Class) return Callback
+      renames Create with Obsolescent;
 
 end A0B.Callbacks.Generic_Dispatching;

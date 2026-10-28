@@ -40,11 +40,11 @@ is
    procedure Emitter (Closure : System.Storage_Elements.Integer_Address)
      with SPARK_Mode => Off;
 
-   ---------------------
-   -- Create_Callback --
-   ---------------------
+   ------------
+   -- Create --
+   ------------
 
-   function Create_Callback (Value : Discrete_Type) return Callback is
+   function Create (Value : Discrete_Type) return Callback is
      (Emitter => Emitter'Access,
       Closure => Encode (Value))
      with SPARK_Mode => Off;

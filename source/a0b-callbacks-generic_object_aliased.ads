@@ -21,7 +21,10 @@ is
    --  Outside SPARK: unchecked access retains an existing mutable object,
    --  with lifetime and aliasing obligations outside native SPARK ownership.
 
+   function Create (Object : aliased in out Object_Type) return Callback;
+
    function Create_Callback
-     (Object : aliased in out Object_Type) return Callback;
+     (Object : aliased in out Object_Type) return Callback
+      renames Create with Obsolescent;
 
 end A0B.Callbacks.Generic_Object_Aliased;

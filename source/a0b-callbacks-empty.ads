@@ -13,13 +13,15 @@ package A0B.Callbacks.Empty
   with Pure, SPARK_Mode => On
 is
 
-   function Create_Callback return Callback
+   function Create return Callback
      with Global  => null,
-          Depends => (Create_Callback'Result => null),
-          Post    => not Is_Set (Create_Callback'Result);
+          Depends => (Create'Result => null),
+          Post    => not Is_Set (Create'Result);
+
+   function Create_Callback return Callback renames Create with Obsolescent;
 
 private
 
-   function Create_Callback return Callback is (others => <>);
+   function Create return Callback is (others => <>);
 
 end A0B.Callbacks.Empty;

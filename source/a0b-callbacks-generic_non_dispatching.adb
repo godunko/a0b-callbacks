@@ -17,11 +17,11 @@ is
 
    procedure Emitter (Closure : System.Storage_Elements.Integer_Address);
 
-   ---------------------
-   -- Create_Callback --
-   ---------------------
+   ------------
+   -- Create --
+   ------------
 
-   function Create_Callback
+   function Create
      (Object : aliased in out Object_Type'Class) return Callback
    is
      (Emitter => Emitter'Access,
